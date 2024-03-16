@@ -4,8 +4,8 @@
 }
 
 #choiceHead, #choiceTail{
-    height: 20vw;
-    width: 10vw;
+    height: 10vh;
+    width: 15vw;
 }
 
 #choiceHead{background-color: red;}
@@ -13,8 +13,8 @@
 
 #attack, #defend{
     display: none;
-    height: 10vw;
-    width: 10vw;
+    height: 10vh;
+    width: 15vw;
 }
 
 #attack{background-color: pink;}
