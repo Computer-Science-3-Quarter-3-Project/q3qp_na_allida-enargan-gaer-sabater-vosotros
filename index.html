@@ -17,10 +17,6 @@
             <p id="opponentHealth"></p>
         </div>
     </header>
-    <div >
-
-    </div>
-    
     <button id="attack" style="background-color: purple;" onclick = playerAttack()> ATTACK</button> <!--attack button-->
     <button id="defend" style="background-color: pink;" onclick = playerDefend()> DEFEND</button> <!--defend button-->
     
@@ -28,11 +24,9 @@
         <div id="textbox">
             <p id="output"></p>
         </div>
-        <img src="" alt="">
-        <button></button>
         <div id="dropdown">
-            <div class="dropdown-content" id="attack" style="background-color: red;">HEAD</div>
-            <div class="dropdown-content" id="defend" style="background-color: blue;">TAIL</div>
+            <div class="dropdown-content" id="attack" style="background-color: red;" onclick="tossCoinHeads()">HEAD</div>
+            <div class="dropdown-content" id="defend" style="background-color: blue;" onclick="tossCoinTails()">TAIL</div>
         </div>
     </section>
     
@@ -81,9 +75,6 @@
                 document.getElementById("defend").style.display = "block";
             }
         }
-
-        document.getElementById("choiceHead").onclick = tossCoinHeads;
-        document.getElementById("choiceTail").onclick = tossCoinTails;
         
     //reset button
 
@@ -92,6 +83,7 @@
             var damage = Math.floor((Math.random() * 5) + 1);
         }
     // attackOrDefend
+        // determines the opponent's action
         function opponentAction() {
             var Action = Math.random() * 2;
 
@@ -103,6 +95,8 @@
                 alert("Opponent defends!");
             }
         }
+
+        // executes when the player selects attack
         function playerAttack() {
             var playerDamage = calculateDamage();
             var opponentAction = opponentAction();
@@ -121,6 +115,7 @@
             checkHealth();
         }
         
+        // executes when the player selects defend
         function playerDefend() {
             var opponentDamage = calculateDamage();
             var DamageDone = opponentDamage - 3;
@@ -133,22 +128,23 @@
                     alert("You completely blocked the opponent.")
                 }
             }
-            document.getElementById('playerHealth').textContent = playerHealth;
-            document.getElementById('opponentHealth').textContent = opponentHealth;
 
-            checkHealth()
+            document.getElementById("playerHealth").innerHTML = playerHealth;
+            document.getElementById("opponentHealth").innerHTML = opponentHealth;
+
+            checkHealth();
         }
-    // checkHealth
+    // checks the player's and opponent's health
         function checkHealth(playerHealth, opponentHealth) {
             if(playerHealth == 0) {
-                document.getElementById("output").innerHTML = ("Opponent Wins!");
+                document.getElementById("output").innerHTML = "Opponent Wins!";
             }
             else if(opponentHealth == 0) {
-                document.getElementById("output").innerHTML = ("You Win!");
+                document.getElementById("output").innerHTML = "You Win!";
             }
             else {
-                document.getElementById("playerHealth").innerHTML = ("HP: " + playerHealth);
-                document.getElementById("opponentHealth").innerHTML = ("HP: " + opponentHealth);
+                document.getElementById("playerHealth").innerHTML = "HP: " + playerHealth;
+                document.getElementById("opponentHealth").innerHTML = "HP: " + opponentHealth;
             }
         }
     
