@@ -20,3 +20,8 @@
 #attack{background-color: pink;}
 #defend{background-color: purple;}
 
+#dropdown{
+    display: none;
+}
+
+

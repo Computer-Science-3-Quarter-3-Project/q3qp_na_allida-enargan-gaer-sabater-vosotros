@@ -7,35 +7,41 @@
 </head>
 <body>
     <header>
-        <div id="p1Health">
-            <p id = "playerHealth"></p>
-        </div>
-        <div id="restart">
-            
-        </div>
-        <div id="p2Health">
-            <p id="opponentHealth"></p>
-        </div>
+
+        <p id = "playerHealth"></p>
+        <p id="opponentHealth"></p>
+
     </header>
+
     <button id="attack" style="background-color: purple;" onclick = playerAttack()> ATTACK</button> <!--attack button-->
     <button id="defend" style="background-color: pink;" onclick = playerDefend()> DEFEND</button> <!--defend button-->
     
     <section>
-        <div id="textbox">
-            <p id="output"></p>
-        </div>
+        <p id="output"></p>
+
+        <button id="coinBtn" onclick="toggleDropdown()">COIN</button>
+
         <div id="dropdown">
-            <div class="dropdown-content" id="attack" style="background-color: red;" onclick="tossCoinHeads()">HEAD</div>
-            <div class="dropdown-content" id="defend" style="background-color: blue;" onclick="tossCoinTails()">TAIL</div>
+            <div class="dropdown-content" id="choiceHead" onclick="tossCoinHeads()">HEAD</div>
+            <div class="dropdown-content" id="choiceTail" onclick="tossCoinTails()">TAIL</div>
         </div>
     </section>
     
     <script> 
-    // health status
-        var playerHealth = 100;
+
+        // makes the head and tail buttons visible
+        function toggleDropdown() {
+            document.getElementById("dropdown").style.display = "block";
+        }
+
+        // health status
+        var playerHealth = 100; 
         var opponentHealth = 100;
-        
-    // toss coin
+
+        document.getElementById('playerHealth').innerHTML = "HP: " + playerHealth;
+        document.getElementById('opponentHealth').innerHTML = "HP: " + opponentHealth;
+            
+        // toss coin
         var attackOrDefend; //var checks if the user gets to attack, defend, or both
 
         function tossCoinHeads() { //function does a coin toss if the user chooses heads
