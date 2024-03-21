@@ -7,32 +7,39 @@
 </head>
 <body>
     <header>
-        <div>
+        <div id="p1Health">
             <p id = "playerHealth"></p>
         </div>
         <div id="restart">
-            <button onclick="resetBtn"><button>
+            
         </div>
-        <div>
+        <div id="p2Health">
             <p id="opponentHealth"></p>
         </div>
     </header>
-    
-    <button id="choiceHead" style="background-color: red;">HEAD</button> <!--lets the user choose head-->
-    <button id="choiceTail" style="background-color: blue;">TAIL</button> <!--lets the user choose tail-->
-    <button id="attack" style="background-color: purple;">ATTACK</button> <!--attack button-->
-    <button id="defend" style="background-color: pink;">DEFEND</button> <!--defend button-->
-    
-    <div id="textbox">
-        <p id="output"></p>
+    <div >
+
     </div>
+    
+    <button id="attack" style="background-color: purple;" onclick = playerAttack()> ATTACK</button> <!--attack button-->
+    <button id="defend" style="background-color: pink;" onclick = playerDefend()> DEFEND</button> <!--defend button-->
+    
+    <section>
+        <div id="textbox">
+            <p id="output"></p>
+        </div>
+        <img src="" alt="">
+        <button></button>
+        <div id="dropdown">
+            <div class="dropdown-content" id="attack" style="background-color: red;">HEAD</div>
+            <div class="dropdown-content" id="defend" style="background-color: blue;">TAIL</div>
+        </div>
+    </section>
     
     <script> 
     // health status
         var playerHealth = 100;
         var opponentHealth = 100;
-        
-    
         
     // toss coin
         var attackOrDefend; //var checks if the user gets to attack, defend, or both
@@ -79,13 +86,10 @@
         document.getElementById("choiceTail").onclick = tossCoinTails;
         
     //reset button
-        function resetBtn(){
-            
-        }
 
     // damage
         function calculateDamage() {
-            var damage = Math.floor(Math.random() * 5) + 1;
+            var damage = Math.floor((Math.random() * 5) + 1);
         }
     // attackOrDefend
         function opponentAction() {
@@ -111,8 +115,8 @@
                 alert("The opponent completely blocked the attack!");
             }
 
-            document.getElementById('playerHealth').textContent = playerHealth;
-            document.getElementById('opponentHealth').textContent = opponentHealth;
+            document.getElementById("playerHealth").innerHTML = playerHealth;
+            document.getElementById("opponentHealth").innerHTML = opponentHealth;
 
             checkHealth();
         }
