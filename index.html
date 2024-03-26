@@ -103,12 +103,12 @@
         }
 
         // executes when the player selects attack
-        function playerAttack() {
+      function playerAttack() {
             var playerDamage = calculateDamage();
-            var opponentAction = opponentAction();
-            if (opponentAction === 1 ) {
+            var opponentAction = opponent_choice;
+            if (opponentAction == 1 ) {
                 opponentHealth -= playerDamage;
-                alert("You inflict " + playerDamage + " damage.");
+                document.write("You inflict " + playerDamage + " damage.");
             }
 
             else {
@@ -120,7 +120,6 @@
 
             checkHealth();
         }
-        
         // executes when the player selects defend
         function playerDefend() {
             var opponentDamage = calculateDamage();
