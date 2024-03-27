@@ -17,8 +17,8 @@
 
     <button id="head" style="background-color: gray;" onclick="tossCoinHeads()">HEAD</button>
     <button id="tail" style="background-color: white;" onclick="tossCoinTails()">TAIL</button>
-    <button id="attack" style="background-color: blue;" onclick="playerAttack()">ATTACK</button>
-    <button id="defend" style="background-color: pink;" onclick="playerDefend()">DEFEND</button>
+    <button id="attack" style="background-color: blue;" onclick="playerAttack(); defendBtnDisable()" disabled>ATTACK</button>
+    <button id="defend" style="background-color: pink;" onclick="playerDefend(); attackBtnDisable()" disabled>DEFEND</button>
     <button id="reset" style="background-color: purple;" onclick="reset()">RESET</button>
 
     <script>
@@ -26,31 +26,59 @@
             document.getElementById("dropdown").style.display = "block";
         }
 
+        function attackBtnDisable(){
+            var btn = document.getElementById("attack");
+            btn.disabled = false;
+        }
+
+        function defendBtnDisable(){
+            var btn = document.getElementById("defend");
+            btn.disabled = false;
+        }
+
         function tossCoinHeads() { //executes when the user chooses heads
-            var button = document.getElementById("defend");
+            var attackBtn = document.getElementById("attack");
+            var defendBtn = document.getElementById("defend")
+            var headBtn = document.getElementById("head");
+            var tailBtn = document.getElementById("tail");
             var coin = Math.round(Math.random());
             if (coin == 0) {
                 alert("Coin is head. You chose head!");
-                button.disabled = true;
+                attackBtn.disabled = false;
+                defendBtn.disabled = true;
             }
             else {
                 alert("Coin is  tail. You chose head!");
-                button.disabled = false;
+                attackBtn.disabled = false;
+                defendBtn.disabled = false;
             }
+            var headBtn = document.getElementById("head");
+            var tailBtn = document.getElementById("tail");
+
+            headBtn.disabled = true;
+            tailBtn.disabled = true;
         }
 
         function tossCoinTails() { //function does a coin toss if the user chooses tails
-            var button = document.getElementById("defend");
+            var attackBtn = document.getElementById("attack");
+            var defendBtn = document.getElementById("defend");
+            var headBtn = document.getElementById("head");
+            var tailBtn = document.getElementById("tail");
             var coin = Math.random();
             coin = Math.round(coin);
             if (coin == 0) {
                 alert("Coin is head. You chose tails!");
-                button.disabled = false;
+                attackBtn.disabled = false;
+                defendBtn.disabled = false;
             }
             else {
                 alert("Coin is  tail. You chose tail!");
-                button.disabled = true;
+                attackBtn.disabled = false;
+                defendBtn.disabled = true;
             }
+
+            headBtn.disabled = true;
+            tailBtn.disabled = true;
         }
 
         let playerHealth = 100; //sets the initial health of the player
@@ -137,6 +165,17 @@
 
             document.getElementById("playerHealth").innerHTML = "Player HP: " + playerHealth;
             document.getElementById("opponentHealth").innerHTML = "Opponent HP: " + opponentHealth;
+
+            var headBtn = document.getElementById("head");
+            var tailBtn = document.getElementById("tail");
+            var attackBtn = document.getElementById("attack");
+            var defendBtn = document.getElementById("defend");
+
+            headBtn.disabled = false;
+            tailBtn.disabled = false;
+            attackBtn.disabled = true;
+            defendBtn.disabled = true;
+            
         }
 
     </script>
