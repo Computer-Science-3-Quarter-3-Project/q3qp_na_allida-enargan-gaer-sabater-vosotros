@@ -6,29 +6,49 @@
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <p id = "playerHealth"></p>
-        <p id = "opponentHealth"></p>
-    </header>
+    <div class="wholeGame"> <!--container-->
+        <header>
+            <div class="p1HP">  <!--item1-->
+            <p id = "playerHealth"></p>
+            </div>
 
-    <button id="dropdownBtn">
+            <div class="p2HP"> <!--item2-->
+            <p id = "opponentHealth"></p>
+            </div>
+        </header>
+        <div class="p1" id="player"> <!--item3-->
+            <img src="media/player1-default.png">
+        </div>
+        <div class="msg"> <!--item 4-->
+            <img src="media/candy.png" alt="">
+        </div>  
+        <div class="p2" id="player"> <!--item 5-->
+            <img src="media/player2-default.png">    
+        </div>
+        
+            <div class="allBtn">  <!--item 6-->
+                <button id="coin" onclick="toggleDropdown()">Coin</button>
+                <button id="attack" onclick="playerAttack(); defendBtnDisable()" disabled>ATTACK</button>
+                <button id="defend" onclick="playerDefend(); attackBtnDisable()" disabled>DEFEND</button>
+                <button id="reset" onclick="reset()">RESET</button>
 
-    </button>
-
-    <button id="head" style="background-color: gray;" onclick="tossCoinHeads()">HEAD</button>
-    <button id="tail" style="background-color: white;" onclick="tossCoinTails()">TAIL</button>
-    <button id="attack" style="background-color: blue;" onclick="playerAttack(); defendBtnDisable()" disabled>ATTACK</button>
-    <button id="defend" style="background-color: pink;" onclick="playerDefend(); attackBtnDisable()" disabled>DEFEND</button>
-    <button id="reset" style="background-color: purple;" onclick="reset()">RESET</button>
-    <div id="actions">
-        <div id="action1"></div>
-        <div id="action2"></div>
-        <div id="action3"></div>
-        <div id="output"></div>
+                <p id="head" onclick="tossCoinHeads()">HEAD</button>
+                <p id="tail" onclick="tossCoinTails()">TAIL</button>
+            </div>
     </div>
     <script>
+        const coinButton = document.getElementById('coin');
+        const headsButton = document.getElementById('head');
+        const tailsButton = document.getElementById('tail');
+
+         // hide the heads and tails buttons at first
+        headsButton.style.display = 'none';
+        tailsButton.style.display = 'none';
+
         function toggleDropdown() {
-            document.getElementById("dropdown").style.display = "block";
+             // toggle the display of the heads and tails buttons
+            headsButton.style.display = 'block';
+            tailsButton.style.display = 'block';
         }
 
         function attackBtnDisable(){
@@ -100,10 +120,36 @@
 
         function checkHealth()  { // checks the player's and opponent's health to declare either a win or loss
             if(playerHealth <= 0) { 
+                playerHealth = 0;
+
+                document.getElementById("playerHealth").innerHTML = "Player HP: " + playerHealth;
                 document.getElementById("output").innerHTML = "Opponent Wins!"; 
+
+                var headBtn = document.getElementById("head");
+                var tailBtn = document.getElementById("tail");
+                var attackBtn = document.getElementById("attack");
+                var defendBtn = document.getElementById("defend");
+
+                headBtn.disabled = true;
+                tailBtn.disabled = true;
+                attackBtn.disabled = true;
+                defendBtn.disabled = true;
             }
             else if(opponentHealth <= 0) {
+                opponentHealth = 0;
+
                 document.getElementById("output").innerHTML = "You Win!";
+                document.getElementById("opponentHealth").innerHTML = "Opponent HP: " + opponentHealth;
+
+                var headBtn = document.getElementById("head");
+                var tailBtn = document.getElementById("tail");
+                var attackBtn = document.getElementById("attack");
+                var defendBtn = document.getElementById("defend");
+
+                headBtn.disabled = true;
+                tailBtn.disabled = true;
+                attackBtn.disabled = true;
+                defendBtn.disabled = true;
             }
             else {
                 document.getElementById("playerHealth").innerHTML = "Player HP: " + playerHealth;
@@ -141,33 +187,6 @@
                 }
             }   
             checkHealth();
-
-            if(playerHealth <=0) {
-                playerHealth = 0;
-                document.getElementById("playerHealth").innerHTML = "Player HP: " + playerHealth;
-                var headBtn = document.getElementById("head");
-                var tailBtn = document.getElementById("tail");
-                var attackBtn = document.getElementById("attack");
-                var defendBtn = document.getElementById("defend");
-
-                headBtn.disabled = true;
-                tailBtn.disabled = true;
-                attackBtn.disabled = true;
-                defendBtn.disabled = true;
-            }
-            if(opponentHealth <=0) {
-                opponentHealth = 0;
-                document.getElementById("opponentHealth").innerHTML = "Opponent HP: " + opponentHealth;
-                var headBtn = document.getElementById("head");
-                var tailBtn = document.getElementById("tail");
-                var attackBtn = document.getElementById("attack");
-                var defendBtn = document.getElementById("defend");
-
-                headBtn.disabled = true;
-                tailBtn.disabled = true;
-                attackBtn.disabled = true;
-                defendBtn.disabled = true;
-            }
         }  
 
         function playerDefend(){ //executes when the player clicks the "defend" button
@@ -191,32 +210,6 @@
             }   
             
             checkHealth();
-            if(playerHealth <=0) {
-                playerHealth = 0;
-                document.getElementById("playerHealth").innerHTML = "Player HP: " + playerHealth;
-                var headBtn = document.getElementById("head");
-                var tailBtn = document.getElementById("tail");
-                var attackBtn = document.getElementById("attack");
-                var defendBtn = document.getElementById("defend");
-
-                headBtn.disabled = true;
-                tailBtn.disabled = true;
-                attackBtn.disabled = true;
-                defendBtn.disabled = true;
-            }
-            if(opponentHealth <=0) {
-                opponentHealth = 0;
-                document.getElementById("opponentHealth").innerHTML = "Opponent HP: " + opponentHealth;
-                var headBtn = document.getElementById("head");
-                var tailBtn = document.getElementById("tail");
-                var attackBtn = document.getElementById("attack");
-                var defendBtn = document.getElementById("defend");
-
-                headBtn.disabled = true;
-                tailBtn.disabled = true;
-                attackBtn.disabled = true;
-                defendBtn.disabled = true;
-            }
         }
 
         function reset(){ //resets the game
@@ -244,5 +237,7 @@
         }
 
     </script>
+
+    <link rel="stylesheet" href="style.css">
 </body>
 </html>
