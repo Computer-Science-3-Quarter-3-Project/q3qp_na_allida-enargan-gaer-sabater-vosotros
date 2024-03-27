@@ -20,7 +20,12 @@
     <button id="attack" style="background-color: blue;" onclick="playerAttack(); defendBtnDisable()" disabled>ATTACK</button>
     <button id="defend" style="background-color: pink;" onclick="playerDefend(); attackBtnDisable()" disabled>DEFEND</button>
     <button id="reset" style="background-color: purple;" onclick="reset()">RESET</button>
-
+    <div id="actions">
+        <div id="action1"></div>
+        <div id="action2"></div>
+        <div id="action3"></div>
+        <div id="output"></div>
+    </div>
     <script>
         function toggleDropdown() {
             document.getElementById("dropdown").style.display = "block";
@@ -106,17 +111,21 @@
             }
         }
 
+        function opponentAction(){
+            opponentChoice = Math.round(Math.random()); 
+            return opponentChoice; 
+        }
+
         function playerAttack() { //is called when the player clicks the "attack" button
-            alert("You will attack!");      
             var pDamage = calculateDamage(); //calculates the raw damage
             playerDamage = playerDamage + pDamage; //raw damage + damage caused by the preceding attacks
-
-            var opponentChoice = Math.round(Math.random());  
+            document.getElementById("action1").innerHTML = ("You will attack!");
+            var opponentChoice = opponentAction();  
             if (opponentChoice == 0 ) { //is executed when opponentChoice == 0 or when the opponent attacks
                 var oDamage = calculateDamage(); //calculates the raw damage
                 opponentDamage = opponentDamage + oDamage; //raw damage + damage caused by the preceding attacks
-                alert("Player inflicts "+ pDamage +" damage");
-                alert("Opponent inflicts "+ oDamage +" damage");
+                document.getElementById("action2").innerHTML = ("Player inflicts "+ pDamage +" damage");
+                document.getElementById("action3").innerHTML = ("Opponent inflicts "+ oDamage +" damage");
                 playerHealth = playerHealth - oDamage;  
                 opponentHealth = opponentHealth - pDamage; 
             }   
@@ -125,36 +134,89 @@
                 pDamage = pDamage - 3;
                 if(pDamage > 0) {
                     opponentHealth = opponentHealth - pDamage; 
-                    alert("Player inflicts" + pDamage + " damage");
+                    document.getElementById("action2").innerHTML = ("Player inflicts "+ pDamage +" damage");
                 }   
                 else {
-                    alert("Opponent has completely blocked you.");
+                    document.getElementById("action3").innerHTML = ("Opponent has completely blocked you.");
                 }
             }   
-
             checkHealth();
+
+            if(playerHealth <=0) {
+                playerHealth = 0;
+                document.getElementById("playerHealth").innerHTML = "Player HP: " + playerHealth;
+                var headBtn = document.getElementById("head");
+                var tailBtn = document.getElementById("tail");
+                var attackBtn = document.getElementById("attack");
+                var defendBtn = document.getElementById("defend");
+
+                headBtn.disabled = true;
+                tailBtn.disabled = true;
+                attackBtn.disabled = true;
+                defendBtn.disabled = true;
+            }
+            if(opponentHealth <=0) {
+                opponentHealth = 0;
+                document.getElementById("opponentHealth").innerHTML = "Opponent HP: " + opponentHealth;
+                var headBtn = document.getElementById("head");
+                var tailBtn = document.getElementById("tail");
+                var attackBtn = document.getElementById("attack");
+                var defendBtn = document.getElementById("defend");
+
+                headBtn.disabled = true;
+                tailBtn.disabled = true;
+                attackBtn.disabled = true;
+                defendBtn.disabled = true;
+            }
         }  
 
         function playerDefend(){ //executes when the player clicks the "defend" button
-            alert("You will defend!");
-            var opponentChoice = Math.round(Math.random());
-            if(opponentChoice == 0) { //executes when the opponent attacks
+            document.getElementById("action1").innerHTML = ("You will defend!");
+            var opponentChoice = opponentAction();  
+            if(opponentChoice == 1) { //executes when the opponent attacks
                 var oDamage = calculateDamage(); 
-                opponentDamage = opponentDamage + oDamage;
-                if(oDamage > 0){ 
-                    alert("Opponent inflicts "+ oDamage +" damage");
+                opponentDamage = oDamage - 3;
+                if(opponentDamage > 0){ 
+                    document.getElementById("action2").innerHTML = ("Opponent inflicts "+ oDamage +" damage");
                     playerHealth = playerHealth - oDamage;
                 }
                 else{
                     oDamage = 0;
-                    alert("You completely blocked the opponent.")
+                    document.getElementById("action2").innerHTML = ("You completely blocked the opponent.");
                 }
             }
-            else { //attacks when the opponent defends
-                alert("The opponent defended too");
-            }
+            else if (opponentChoice == 0){ //attacks when the opponent defends
+                document.getElementById("action2").innerHTML = ("The opponent defended too");
+                document.getElementById("action3").innerHTML = "";
+            }   
             
             checkHealth();
+            if(playerHealth <=0) {
+                playerHealth = 0;
+                document.getElementById("playerHealth").innerHTML = "Player HP: " + playerHealth;
+                var headBtn = document.getElementById("head");
+                var tailBtn = document.getElementById("tail");
+                var attackBtn = document.getElementById("attack");
+                var defendBtn = document.getElementById("defend");
+
+                headBtn.disabled = true;
+                tailBtn.disabled = true;
+                attackBtn.disabled = true;
+                defendBtn.disabled = true;
+            }
+            if(opponentHealth <=0) {
+                opponentHealth = 0;
+                document.getElementById("opponentHealth").innerHTML = "Opponent HP: " + opponentHealth;
+                var headBtn = document.getElementById("head");
+                var tailBtn = document.getElementById("tail");
+                var attackBtn = document.getElementById("attack");
+                var defendBtn = document.getElementById("defend");
+
+                headBtn.disabled = true;
+                tailBtn.disabled = true;
+                attackBtn.disabled = true;
+                defendBtn.disabled = true;
+            }
         }
 
         function reset(){ //resets the game
@@ -165,6 +227,9 @@
 
             document.getElementById("playerHealth").innerHTML = "Player HP: " + playerHealth;
             document.getElementById("opponentHealth").innerHTML = "Opponent HP: " + opponentHealth;
+            
+
+            document.getElementById("actions").innerHTML = " ";
 
             var headBtn = document.getElementById("head");
             var tailBtn = document.getElementById("tail");
